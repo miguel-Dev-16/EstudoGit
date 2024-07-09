@@ -109,12 +109,29 @@ dentro do arquivo gitignore escreve o arquivo que é para ser ignorado
 Criamos uma ramificação e uma copia da branch em que queremos, é criado uma linha do tempo paralela a linha do tempo original.
 
 ```bash
-git branch -> lista todas as branch
-git branch nomeBranch -> cria uma nova branch ele ja cria a branch no repositorio remoto quando da o push
-git branch -b nomeBranch -> cria uma nova branch e ja faz o checkout automatico
-git checkout nomeBranch -> muda de branch
+git branch -> lista todas as branch.
+git branch nomeBranch -> cria uma nova branch ele ja cria a branch no repositorio remoto quando da o push.
+git branch -b nomeBranch -> cria uma nova branch e ja faz o checkout automatico entra dentro dela.
+git checkout nomeBranch -> muda de branch.
 git branch -D nomeDaBranch -> ai você deleta a branch sem precisar de merge mesmo se tiver commites la dentro.
-git branch -d nomeDaBranch -> se você tiver commit la dentro ai ele pede primeiro para fazer o merge e depois exclu
+git branch -d nomeDaBranch -> se você tiver commit la dentro ai ele pede primeiro para fazer o merge e depois excluir.
+git branch -M main ou git branch -m main -> voce edita o nome da branch(podendo passar de master para main).
+git commit -am "mensagem" -> ele adiciona e commita, só serve para arquivos Modificsdos , quando formos colocar ou criar outro arquivo temos que colocar o git add.
+
+git checkout -b nomeBranch -> quando voce faz alterações na sua branch principal e ja quer criar uma branch e adicionar estas alterações a ela sem precisar da commit na branch principal.
+```
+
+Quando estamos trabalhando em uma branch que não é a principal, e tem commits a frente dela e precisamos baixar as atualizações para está branch auxiliar e manter a ordem correta dos commits usamos o comando.
+
+```bash
+git pull --rebase origin main
+## 1) Situação: dentro da nossa branch auxiliar pegamos as atualizações da branch principal. Mantendo a ordem correta dos commits.Usamos o rebase somente em nosso repositorio local. Ou seja fica pronto para quando quisermos fazer o merge.
+###############################################################################################################################
+#2) Situação sem baixar as atualizações: Estando em uma branch feature, e a main está com commits a frente
+* -> git  --rebase origin main #-> ele pega o inicio do commit da feature e reposiciona até o último commit da main!, lembrando que estamos atualizando nossa branch feature.
+#-> depois vamos no branch main e usamos o comando git rebase feature e ele ja atualiza tudo e neste caso não precisa do merge.
+
+obs . Procurar manter a sua branch principal atualizada.
 ```
 
 
@@ -124,7 +141,12 @@ git branch -d nomeDaBranch -> se você tiver commit la dentro ai ele pede primei
 É você fundir os branchs e para isso você precisa ir para a branch de destino no caso o main que eu quero fundo para ele. E mergiar.
 
 ```bash
-git checkout se eu der um tab no teclado ele me mostra as opcões
+podemos fazer merge local e depois subir para a main do github. ou seja podemos criar ramificões na nossa propria maquina e mergiar na nossa propria maquina e depois subir para o main.
+
+podemos tambem criar uma branch na nossa maquina e subir está branch para o GIT HUB nas nuvens.
+
+git checkout -> ele exibe todas as branchs criadas.
+Para se fazer o merge precisa está na branch em que quer fazer o merge e usar o comando abaixo.
 git merge nomeBranch -> ele faz o merge.
 ```
 
@@ -140,9 +162,15 @@ quando não for um é o outro.
 
 ## Resolvendo conflitos.
 
-Se a pessoa trabalhar no mesmo arquivo ou alguém alterar um arquivo que você está mexendo e da um merge, ai você ajeita e depois da um commit. o próprio editor de texto ou ide mostra os conflitos e atalhos para aceitar qual arquivo vai mergear.
+Se a pessoa trabalhar no mesmo arquivo ou alguém alterar um arquivo que você está mexendo e da um merge, ai você ajeita e depois da um commit. o próprio editor de texto ou ide mostra os conflitos para ser resolvidos antes de mergear.
 
-Ou seja podemos resolver na mão os conflitos ou pelo próprio editor.
+Estágio do conflito.
+
+* Mantem a sua alteração 
+* Mantem a alteração do outro
+* Mantem todas alterações
+
+depois que resolver os conflitos.....
 
 ## Conectar projeto ao Git-hub:
 
@@ -195,6 +223,31 @@ Fazendo o fork de um repositório contribuindo com projetos open source.
 8. ai espera o criador aprovar ou não.
 
 Obs. o pull request você faz diretamente no git hub e não no git.
+
+```bash
+git remote -v # ista todos os repositórios remotos configurados no seu repositório Git local, mostrando as URLs associadas a cada repositório remoto e indicando se a URL é usada para operações de fetch (buscar dados) ou push (enviar dados)
+```
+
+git remote add upstream:
+
+```bash
+#é usado para adicionar um repositório remoto adicional ao seu repositório Git local. Esse repositório é geralmente o repositório original (ou principal) de onde seu repositório foi clonado, especialmente em situações de projetos de código aberto onde você fez um fork do repositório original para fazer suas próprias contribuições.
+
+git remote add upstream https://github.com/usuario/original-repo.git
+
+git fetch upstream [url] #Você pode buscar atualizações do repositório original usando git fetch upstream e mesclar essas alterações em seu repositório local. Facilita a colaboração em projetos de código aberto, mantendo seu fork atualizado com o repositório principal.
+
+git merge upstream/main #Mescla a branch main do repositório upstream na sua branch atual (supondo que a branch principal se chama main).
+
+git pull upstream main #Faz fetch e merge da branch main do repositório upstream.
+
+```
+
+## Pull Request
+
+Acontece quando criamos uma branch e subimos para o git hub repositório nas nuvens e esperamos algum colaborador aprovar seu PR (pull request).
+
+
 
 ## Issues
 
